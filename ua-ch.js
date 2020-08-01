@@ -35,6 +35,7 @@
     };
     if (/\b(?:Chrome|CrMo|CriOS)\/((\d+)\.[\d.]+)/.test(userAgent) && !/\bEdge\//.test(userAgent)) {
         brands.push({ brand: 'Chromium', version: RegExp.$2 });
+        brands.push({ brand: '"Not\\A;Brand', version: '99' });
         values.uaFullVersion = RegExp.$1;
     }
     if (/\bEdg(?:e|iOS|A)?\/((\d+)\.[\d.]+)/.test(userAgent)) {
@@ -60,6 +61,9 @@
     if (/\b(?:Firefox|FxiOS)\/((\d+)\.[\d.]+)/.test(userAgent)) {
         brands.push({ brand: 'Firefox', version: RegExp.$2 });
         values.uaFullVersion = RegExp.$1;
+    }
+    if (brands.length < 3 && brands[0].brand === 'Chromium') {
+        brands.push({ brand: 'Google Chrome', version: brands[0].version });
     }
     if (!brands.length && /\bSafari\//.test(userAgent) && /\bVersion\/((\d+)\.[\d.]+)/.test(userAgent)) {
         brands.push({ brand: 'Safari', version: RegExp.$2 });
