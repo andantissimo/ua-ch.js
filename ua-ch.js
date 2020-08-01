@@ -115,7 +115,7 @@
         /** @type {UADataValues} */
         const result = {};
         hints.forEach(function(hint) { if (hint in values) result[hint] = values[hint]; });
-        return promisify(result);
+        return window.Promise ? Promise.resolve(result) : promisify(result);
     };
 
     Object.defineProperties(navigator, {
