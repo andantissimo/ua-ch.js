@@ -1,0 +1,9 @@
+{
+  "name": "ua-ch.js",
+  "version": "0.0.0",
+  "description": "User-Agent Client Hints polyfill",
+  "author": "MALU",
+  "license": "MIT",
+  "main": "ua-ch.js",
+  "types": "ua-ch.d.ts"
+}
