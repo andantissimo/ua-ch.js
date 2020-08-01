@@ -11,4 +11,3 @@
   * Chrome
   * Edge
   * Opera
-  * Vivaldi

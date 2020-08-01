@@ -45,10 +45,6 @@
         brands.push({ brand: 'Opera', version: RegExp.$2 });
         values.uaFullVersion = RegExp.$1;
     }
-    if (/\bVivaldi\/((\d+)\.[\d.]+)/.test(userAgent)) {
-        brands.push({ brand: 'Vivaldi', version: RegExp.$2 });
-        values.uaFullVersion = RegExp.$1;
-    }
     if (/\bSamsungBrowser\/((\d+)\.[\d.]+)/.test(userAgent)) {
         brands.push({ brand: 'Samsung Internet', version: RegExp.$2 });
         values.uaFullVersion = RegExp.$1;
