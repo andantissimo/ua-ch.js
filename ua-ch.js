@@ -94,7 +94,7 @@
         values.platform = RegExp.$1;
     }
 
-    function NavigatorUAData() {
+    const NavigatorUAData = function() {
         Object.defineProperties(this, {
             brands: { enumerable: true, value: Object.freeze(brands) },
             mobile: { enumerable: true, value: mobile },
