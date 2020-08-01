@@ -96,8 +96,8 @@
 
     function NavigatorUAData() {
         Object.defineProperties(this, {
-            brands: { value: Object.freeze(brands) },
-            mobile: { value: mobile },
+            brands: { enumerable: true, value: Object.freeze(brands) },
+            mobile: { enumerable: true, value: mobile },
         });
     };
     if (window.Symbol && Symbol.toStringTag) {
