@@ -1,17 +1,18 @@
 /// <reference path="ua-ch.d.ts" />
 
-(function() {
+(function(Promise, Symbol) {
     'use struct';
 
     if ('userAgentData' in navigator)
         return;
 
+    const promisify = Promise ? Promise.resolve :
     /**
      * @template T
      * @param {T | PromiseLike<T>} value
      * @returns {PromiseLike<T>}
      */
-    const promisify = function(value) {
+    function(value) {
         return value && 'then' in value ? value : {
             then: function(onfulfilled) {
                 return promisify(onfulfilled(value));
@@ -100,8 +101,10 @@
             mobile: { enumerable: true, value: mobile },
         });
     };
-    if (window.Symbol && Symbol.toStringTag) {
+    if (Symbol && Symbol.toStringTag) {
         NavigatorUAData.prototype[Symbol.toStringTag] = 'NavigatorUAData';
+    } else {
+        NavigatorUAData.prototype.toString = function() { return '[object NavigatorUAData]'; };
     }
     /**
      * @param {(keyof UADataValues)[]} hints
@@ -115,10 +118,10 @@
         /** @type {UADataValues} */
         const result = {};
         hints.forEach(function(hint) { if (hint in values) result[hint] = values[hint]; });
-        return window.Promise ? Promise.resolve(result) : promisify(result);
+        return promisify(result);
     };
 
     Object.defineProperties(navigator, {
-        userAgentData: { get: function() { return new NavigatorUAData; } }
+        userAgentData: { enumerable: true, value: new NavigatorUAData }
     });
-})();
+})(window.Promise, window.Symbol);
