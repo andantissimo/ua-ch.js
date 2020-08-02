@@ -6,7 +6,15 @@
     if ('userAgentData' in navigator)
         return;
 
-    const promisify = Promise ? Promise.resolve :
+    const promisify = Promise ?
+    /**
+     * @template T
+     * @param {T | PromiseLike<T>} value
+     * @returns {PromiseLike<T>}
+     */
+    function(value) {
+        return Promise.resolve(value);
+    } :
     /**
      * @template T
      * @param {T | PromiseLike<T>} value
@@ -63,9 +71,6 @@
         brands.push({ brand: 'Firefox', version: RegExp.$2 });
         values.uaFullVersion = RegExp.$1;
     }
-    if (brands.length < 3 && brands[0].brand === 'Chromium') {
-        brands.push({ brand: 'Google Chrome', version: brands[0].version });
-    }
     if (!brands.length && /\bSafari\//.test(userAgent) && /\bVersion\/((\d+)\.[\d.]+)/.test(userAgent)) {
         brands.push({ brand: 'Safari', version: RegExp.$2 });
         values.uaFullVersion = RegExp.$1;
@@ -73,6 +78,9 @@
     if (!brands.length && /\bAppleWebKit\/([\d+.]+)/.test(userAgent)) {
         brands.push({ brand: 'WebKit', version: RegExp.$1 });
         values.uaFullVersion = RegExp.$1;
+    }
+    if (brands.length < 3 && brands[0].brand === 'Chromium') {
+        brands.push({ brand: 'Google Chrome', version: brands[0].version });
     }
     if (/\b(Xbox(?: One)?)\b/.test(userAgent)) {
         values.platform = RegExp.$1;
