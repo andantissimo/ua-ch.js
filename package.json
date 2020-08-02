@@ -4,6 +4,6 @@
   "description": "User-Agent Client Hints polyfill",
   "author": "MALU",
   "license": "MIT",
-  "main": "ua-ch.js",
+  "browser": "ua-ch.js",
   "types": "ua-ch.d.ts"
 }
