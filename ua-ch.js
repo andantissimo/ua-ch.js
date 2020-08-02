@@ -79,7 +79,7 @@
         brands.push({ brand: 'WebKit', version: RegExp.$1 });
         values.uaFullVersion = RegExp.$1;
     }
-    if (brands.length < 3 && brands[0].brand === 'Chromium') {
+    if (brands.length === 2 && brands[0].brand === 'Chromium') {
         brands.push({ brand: 'Google Chrome', version: brands[0].version });
     }
     if (/\b(Xbox(?: One)?)\b/.test(userAgent)) {
